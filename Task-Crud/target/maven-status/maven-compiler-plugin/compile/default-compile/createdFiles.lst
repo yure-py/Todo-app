@@ -1,0 +1,11 @@
+org\example\Service\TaskService.class
+org\example\Infrastructure\Exception\GlobalExceptionHandler.class
+org\example\Service\Domain\Status.class
+org\example\Service\Domain\TaskEntity.class
+org\example\Presentation\TaskController.class
+org\example\Service\TaskMapper.class
+org\example\Infrastructure\Exception\ErrorResponse.class
+org\example\Service\TaskDTO.class
+org\example\CrudTaskApplication.class
+org\example\Data\TaskRepository.class
+org\example\Service\TaskMapperImpl.class
