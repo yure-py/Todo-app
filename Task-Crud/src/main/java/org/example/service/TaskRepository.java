@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 // define o contrato para comunicação entre DATA-SERVICE
 @Repository
 public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
+    boolean existsByTitle(String title);
 }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public interface TaskController {
-
     @Operation(summary = "Create a new task")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "201", description = "Task created successfully. Returns location header with task URI"),
@@ -18,5 +17,4 @@ public interface TaskController {
         @ApiResponse(responseCode = "500", description = "Internal server Error")
     })
     ResponseEntity<?> create(@Valid @RequestBody TaskDTO task, UriComponentsBuilder ucb);
-
 }

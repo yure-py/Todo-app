@@ -15,7 +15,8 @@ public class TaskEntity {
     private Long id;
     @Column(nullable = false, unique = true, length = 100)
     private String title;
-    @Column(nullable = false, unique = true, length = 1000)
+    @Lob
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

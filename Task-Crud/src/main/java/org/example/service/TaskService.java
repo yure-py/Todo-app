@@ -1,11 +1,13 @@
 package org.example.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.example.infrastructure.exceptionHandlers.DuplicatedEntryException;
 import org.example.service.domain.TaskEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TaskService {
@@ -20,9 +22,14 @@ public class TaskService {
 
     // Business Logic
 
+    @Transactional
     public Long save(TaskDTO task) {
         TaskEntity entity = taskMapper.toEntity(task);
-        taskRepository.save(entity);
+        try {
+            taskRepository.save(entity);
+        } catch (Exception e) {
+            throw new DuplicatedEntryException("Task with this title already exists");
+        }
         return entity.getId();
     }
 

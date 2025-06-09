@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import org.example.infrastructure.exceptions.ErrorResponse;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -75,6 +76,18 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(DuplicatedEntryException.class)
+    public ResponseEntity<ErrorResponse> handleDataIntegrityViolationException(
+            DuplicatedEntryException ex, HttpServletRequest request
+    ) {
+        return buildErrorResponse(
+                HttpStatus.CONFLICT,
+                "Data Integrity Violation",
+                request.getRequestURI(),
+                List.of(ex.getMessage())
+        );
+    }
+
     @ExceptionHandler(InvalidTaskStateTransitionException.class)
     public ResponseEntity<ErrorResponse> handleInvalidTaskStateTransitionException(
             InvalidTaskStateTransitionException ex,
@@ -93,21 +106,9 @@ public class GlobalExceptionHandler {
             Exception ex, HttpServletRequest request
     ) {
         return buildErrorResponse(
-            HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error",
-            request.getRequestURI(),
-            List.of("An unexpected error occurred")
+                HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error",
+                request.getRequestURI(),
+                List.of(ex.getMessage())
         );
     }
-    
-    // TODO: Erro de conflito task already completed
-
-    // TODO: Erro de conflito task already canceled
-
-    // TODO: Not founded
-
-    // TODO: Erro de conflito task already reopened
-
-    // TODO: Erro de conflito task already in progress
-
-    
 }
