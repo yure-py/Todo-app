@@ -19,7 +19,6 @@ public class TaskService {
         this.taskMapper = taskMapper;
     }
 
-
     // Business Logic
 
     @Transactional
@@ -57,7 +56,7 @@ public class TaskService {
 
     public TaskDTO reopen(Long id) {
         TaskEntity taskEntity = findByIdOrThrow(id);
-        taskEntity.deComplete();
+        taskEntity.reopen();
         return merge(taskEntity);
     }
 
