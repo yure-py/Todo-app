@@ -37,13 +37,13 @@ public class TaskEntity {
         throw new InvalidTaskStateTransitionException("Canceled Tasks can not be completed");
     }
 
-    public void deComplete() {
+    public void reopen() {
         if (this.status == Status.COMPLETED) {
             this.status = Status.IN_PROGRESS;
             return;
         }
         if (this.status == Status.IN_PROGRESS)
-            throw new InvalidTaskStateTransitionException("TaskEntity already In Progress!");
+            throw new InvalidTaskStateTransitionException("Task already In Progress!");
         throw new InvalidTaskStateTransitionException("Canceled Tasks can not be deCompleted");
     }
 
@@ -53,7 +53,7 @@ public class TaskEntity {
             return;
         }
         if (this.status == Status.CANCELED)
-            throw new InvalidTaskStateTransitionException("TaskEntity already canceled!");
+            throw new InvalidTaskStateTransitionException("Task already canceled!");
         throw new InvalidTaskStateTransitionException("Completed Tasks can not be canceled");
     }
 
