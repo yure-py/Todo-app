@@ -19,6 +19,5 @@ public class TaskDTO {
     private String title;
     @NotBlank
     private String description;
-    @Null
     private Status status;
 }

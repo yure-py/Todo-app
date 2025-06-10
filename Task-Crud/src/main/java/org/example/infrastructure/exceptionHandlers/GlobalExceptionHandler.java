@@ -90,8 +90,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidTaskStateTransitionException.class)
     public ResponseEntity<ErrorResponse> handleInvalidTaskStateTransitionException(
-            InvalidTaskStateTransitionException ex,
-            HttpServletRequest request
+            InvalidTaskStateTransitionException ex, HttpServletRequest request
     ) {
         return buildErrorResponse(
                 HttpStatus.UNPROCESSABLE_ENTITY,
