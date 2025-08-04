@@ -1,4 +1,4 @@
-package api.tasks.data;
+package api.tasks.repository;
 
 
 import api.tasks.domain.model.Task;

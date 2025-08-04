@@ -1,4 +1,4 @@
-package api.tasks.web.Jackson;
+package api.tasks.apresentation.views;
 
 public class Views {
     public interface Public {}

@@ -1,9 +1,9 @@
-package api.tasks.domain.dto;
+package api.tasks.apresentation.dto;
 
 import api.tasks.domain.model.Status;
-import api.tasks.web.Jackson.Views;
+import api.tasks.apresentation.views.Views;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @ToString(of = {"id", "title", "completed", "createdAt"})
 public class TaskDto {
     @JsonView(Views.Public.class)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
     @JsonView(Views.Public.class)
     private String title;

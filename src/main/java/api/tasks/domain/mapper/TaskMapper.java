@@ -1,6 +1,6 @@
 package api.tasks.domain.mapper;
 
-import api.tasks.domain.dto.TaskDto;
+import api.tasks.apresentation.dto.TaskDto;
 import api.tasks.domain.model.Task;
 
 public class TaskMapper {
