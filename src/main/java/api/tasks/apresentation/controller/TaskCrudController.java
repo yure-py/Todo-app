@@ -6,6 +6,7 @@ import api.tasks.apresentation.views.Views;
 import api.tasks.domain.service.TaskService;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("/api/v1/task")
 @Validated
+@Slf4j
 public class TaskCrudController implements TaskApi {
 
     private final TaskService service;
@@ -40,10 +42,14 @@ public class TaskCrudController implements TaskApi {
 
     @Override
     public ResponseEntity<?> create(TaskDto dto, UriComponentsBuilder ucb) {
+        log.info("Criando tarefa com dados: {}", dto);
+
         TaskDto entity = service.cadastrarTarefa(dto);
         URI uri = ucb.path("api/v1/task/{id}")
                      .buildAndExpand(entity.getId())
                      .toUri();
+
+        log.info("Tarefa criada com sucesso. ID: {}", entity.getId());
         return ResponseEntity.created(uri).body(entity);
     }
 

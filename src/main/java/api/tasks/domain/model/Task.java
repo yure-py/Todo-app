@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
-@ToString(of = {"id", "title", "completed"})
+@ToString(of = {"id", "title", "status"})
 @EqualsAndHashCode(of = {"id"})
 public class Task {
 
@@ -23,12 +23,12 @@ public class Task {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false, columnDefinition = "TEXT", length = 1000)
+    @Column(columnDefinition = "TEXT", length = 1000)
     private String description;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status completed;
+    private Status status;
 
     @Column(name = "criado_em", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -39,9 +39,9 @@ public class Task {
     }
 
     public void completarTarefa() {
-        switch (this.completed) {
+        switch (this.status) {
             case PENDENTE:
-                this.completed = Status.FINALIZADO;
+                this.status = Status.FINALIZADO;
                 break;
             case CANCELADO:
                 throw new IllegalOperationFromState("Não é possivel completar tarefas canceladas");
@@ -51,10 +51,10 @@ public class Task {
     }
 
     public void cancelarTarefa() {
-        switch (this.completed) {
+        switch (this.status) {
             case FINALIZADO:
             case PENDENTE:
-                this.completed = Status.CANCELADO;
+                this.status = Status.CANCELADO;
                 break;
             case CANCELADO:
                 break;
@@ -62,9 +62,9 @@ public class Task {
     }
 
     public void reativarTarefa() {
-        switch (this.completed) {
+        switch (this.status) {
             case CANCELADO:
-                this.completed = Status.PENDENTE;
+                this.status = Status.PENDENTE;
                 break;
             case FINALIZADO:
             case PENDENTE:
@@ -74,7 +74,7 @@ public class Task {
 
     @PrePersist
     public void prePersist() {
-        this.completed = Status.PENDENTE;
+        this.status = Status.PENDENTE;
         this.createdAt = LocalDateTime.now();
     }
 }
